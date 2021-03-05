@@ -16,7 +16,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     boolean player1Turn = false;
     //initialize imgView array
     ImageView[][] imgArray = new ImageView[3][3];
+
     TextView dashboard;
+    int runCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,21 +45,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             dashboard.setText("Player 1 turn");
             ((ImageView) v).setImageResource(R.drawable.circle);
             v.setTag("o");
+            runCount++;
 
             if (checkForWin()) {
                 dashboard.setText("Player 1 win !!");
                 pauseGame();
             }
-
         } else {
             dashboard.setText("Player 2 turn");
             ((ImageView) v).setImageResource(R.drawable.cross);
             v.setTag("x");
+            runCount++;
 
             if (checkForWin()) {
                 dashboard.setText("Player 2 win !!");
                 pauseGame();
             }
+        }
+        if (runCount == 9) {
+            dashboard.setText("tie");
+            pauseGame();
         }
         player1Turn = !player1Turn;
     }
@@ -71,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 imgArray[i][j].setTag("");
             }
         }
+        runCount = 0;
         dashboard.setText("Player 1 turn");
         player1Turn = false;
 
