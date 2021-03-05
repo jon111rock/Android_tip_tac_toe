@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if (checkForWin()) {
                 dashboard.setText("Player 1 win !!");
+                pauseGame();
             }
 
         } else {
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if (checkForWin()) {
                 dashboard.setText("Player 2 win !!");
+                pauseGame();
             }
         }
         player1Turn = !player1Turn;
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
+                imgArray[i][j].setOnClickListener(this);
                 imgArray[i][j].setImageResource(0);
                 imgArray[i][j].setTag("");
             }
@@ -71,6 +74,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dashboard.setText("Player 1 turn");
         player1Turn = false;
 
+    }
+
+    private void pauseGame() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                imgArray[i][j].setOnClickListener(null);
+            }
+        }
     }
 
     private boolean checkForWin() {
